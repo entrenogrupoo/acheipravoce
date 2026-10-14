@@ -8,11 +8,13 @@ if (/^\d+$/.test(pixelId)) {
 let groupUrl;
 try {const u = new URL(config.groupUrl);if(u.protocol==='https:' && u.hostname==='chat.whatsapp.com')groupUrl=u.href;}catch(e){}
 let redirecting = false;
+// Ao retornar pelo histórico do navegador, reinicia a contagem.
+window.addEventListener('pageshow', e => { if (e.persisted) window.location.reload(); });
 let timer;
 const seconds = Math.max(1, Number(config.redirectSeconds)||7);
 let remaining = seconds;
 const display = document.getElementById('seconds');
-const fill = document.getElementById('countdown-fill');
+
 function track(event,source){if(typeof fbq==='function')fbq('trackCustom',event,{source:source, destination:'WhatsApp',content_name:'OLHAI'});}
 function goToGroup(source){
  if(redirecting||!groupUrl)return;
@@ -31,17 +33,32 @@ if(groupUrl){
  timer=setInterval(()=>{
   if(document.hidden)return; // Evita redirecionar inesperadamente em aba inativa.
   remaining=Math.max(0,remaining-1);display.textContent=remaining;
-  fill.style.width=((seconds-remaining)/seconds*100)+'%';
+
   if(remaining===0)goToGroup('timer');
  },1000);
 }else{document.querySelector('.countdown').textContent='Link do grupo temporariamente indisponível.';}
+// Avisos informativos, não simulam entradas de participantes.
+// Para exibir nomes reais, conecte uma fonte autorizada de entradas verificadas.
 const messages=[
- ['OLHAI','Achadinhos selecionados da Shopee'],
- ['Cupons','Confira as oportunidades no grupo'],
- ['Promoções','Ofertas podem mudar de preço'],
- ['Shopee','Links para facilitar suas compras'],
- ['OLHAI','Entre gratuitamente no WhatsApp']
+ ['OLHAI','Seu grupo de achadinhos está a um toque'],
+ ['Ofertas','Confira novidades e oportunidades no grupo'],
+ ['Cupons','Aproveite cupons quando estiverem disponíveis'],
+ ['Shopee','Ofertas selecionadas direto no WhatsApp'],
+ ['OLHAI','Entrada gratuita no grupo de ofertas']
 ];
+// A barra usa números apenas quando informados e verificados pelo responsável.
+// O WhatsApp não fornece essa contagem automaticamente a esta página.
+const capacity = config.verifiedCapacity;
+if (capacity && Number.isInteger(capacity.total) && capacity.total > 0 && Number.isInteger(capacity.remaining) && capacity.remaining >= 0 && capacity.remaining <= capacity.total) {
+ const percent = Math.round((capacity.total-capacity.remaining)/capacity.total*100);
+ document.getElementById('capacity-title').textContent='Vagas preenchidas hoje';
+ document.getElementById('capacity-percent').textContent=percent+'%';
+ document.getElementById('capacity-fill').style.width=percent+'%';
+ document.getElementById('capacity-message').textContent='⚡ Restam '+capacity.remaining+' vagas';
+ document.getElementById('capacity-note').textContent='Dados informados pelo administrador do grupo.';
+} else {
+ document.getElementById('capacity-fill').style.width='0%';
+}
 const toast=document.getElementById('toast');let toastIndex=0;
 function showToast(){if(document.hidden)return;const [name,message]=messages[toastIndex++%messages.length];document.getElementById('toast-name').textContent=name;document.getElementById('toast-message').textContent=message;toast.hidden=false;toast.classList.remove('toast-in');void toast.offsetWidth;toast.classList.add('toast-in');setTimeout(()=>{toast.hidden=true;},1450);}
 setTimeout(()=>{showToast();setInterval(showToast,Math.max(2000,Number(config.notificationIntervalMs)||2000));},650);

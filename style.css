@@ -31,3 +31,18 @@ h1 em,h2 em,.benefit h3{color:#d54c00!important}
 
 /* Versão objetiva para anúncios */
 .hero{padding-bottom:24px}.logo{margin-bottom:13px;width:126px;height:126px}.marketplaces{margin:11px 0}.hero h1{font-size:clamp(26px,6vw,32px);margin-bottom:12px}.intro{margin:0 0 12px;line-height:1.45}.timer-lead{font-weight:800;margin:12px 0 0;color:var(--deep)}.countdown{margin:8px auto 12px}.cta{min-height:57px}.micro{margin:9px 0 14px}.availability{margin:0;padding:13px 15px}.availability p{font-size:11px;font-weight:500}.capacity-track>div{width:65%;opacity:.75}.mini-benefits{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.mini-benefits span{border:1px solid #fff9ef;background:#fff9efb8;border-radius:15px;padding:11px 13px;font-size:12px;font-weight:800;color:var(--deep)}.benefits h2{font-size:19px;margin:22px 0 12px}footer{padding:23px 0 35px}footer p{font-size:16px}
+
+/* V4: contador circular e barra fiel à referência */
+.countdown{border:0;background:transparent;padding:0;margin:8px auto 15px;box-shadow:none}
+.timer-circle{width:86px;height:86px;margin:0 auto 7px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff8ec,#ffe1bd);border:3px solid #e78b43;box-shadow:0 0 0 7px #e9914320,0 8px 24px #a84c2930;animation:circlePulse 1s ease-in-out infinite}
+.timer-circle strong{font-size:43px;line-height:1;font-weight:800;color:#ac4326;font-variant-numeric:tabular-nums}
+.countdown small{font-size:11px;line-height:1.55;margin:12px 0 0}
+@keyframes circlePulse{0%,100%{transform:scale(1);box-shadow:0 0 0 5px #e9914325,0 8px 24px #a84c2930}50%{transform:scale(1.06);box-shadow:0 0 0 13px #e9914305,0 10px 28px #a84c2940}}
+.availability{background:#fff7eae8;border:1px solid #f4d2b5;border-radius:28px;padding:22px 20px;margin:0}
+.availability-heading{font-size:16px;color:#79351f}.availability-heading span{font-size:16px;color:#79351f}
+.capacity-track{height:15px;background:#efd5bc;margin:15px 0 10px;border-radius:99px;overflow:hidden}
+.capacity-track>div{height:100%;width:0;opacity:1;background:linear-gradient(90deg,#b4482b,#e59046);border-radius:99px;transition:width .5s}
+.availability p{font-size:14px;color:#c64e29;font-weight:800;margin:7px 0 0}
+.availability small{display:block;color:#987b6b;font-size:10px;margin-top:7px}
+@media(max-width:520px){.availability{padding:19px 17px}.availability-heading,.availability-heading span{font-size:14px}.availability p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.timer-circle{animation:none}}

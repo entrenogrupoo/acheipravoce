@@ -1,12 +1,7 @@
-OLHAI — Achei pra você | versão compacta
-
-Publique TODOS os arquivos desta pasta na raiz do GitHub Pages.
-
-Pixel Meta: 1455099743203745
-PageView: abertura da página
-CliqueGrupoWhatsApp: clique voluntário no botão
-RedirecionamentoAutomaticoGrupo: redirecionamento após 7 segundos
-
-O redirecionamento não confirma entrada no grupo. O contador de vagas não apresenta números inventados; a disponibilidade deve ser consultada no WhatsApp.
-
-Teste a página e os eventos no Gerenciador de Eventos antes de anunciar.
+OLHAI — Site com contador circular de 7 segundos.
+Publique todos os arquivos na raiz do GitHub Pages.
+O contador reinicia ao reabrir a página ou voltar pelo histórico.
+Meta Pixel: PageView, CliqueGrupoWhatsApp, RedirecionamentoAutomaticoGrupo.
+Barra de vagas: mantém visual da referência, mas não inventa percentuais. Para mostrar números, preencha verifiedCapacity no config.js com total e vagas restantes reais.
+Avisos rotativos: mensagens informativas a cada 2 segundos; entradas com nomes exigem dados reais e autorização.
+Teste o Pixel no Gerenciador de Eventos antes de anunciar.
