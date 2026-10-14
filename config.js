@@ -4,5 +4,6 @@ window.OLHAI_CONFIG = {
   redirectSeconds: 7,
   notificationIntervalMs: 2000,
   // Preencha somente com números reais, conferidos no WhatsApp:
+  // verifiedJoins: ["Juliana", "Maria"], // Somente nomes de entradas reais, com autorização
   // verifiedCapacity: { total: 100, remaining: 8 }
 };

@@ -39,7 +39,7 @@ if(groupUrl){
 }else{document.querySelector('.countdown').textContent='Link do grupo temporariamente indisponível.';}
 // Avisos informativos, não simulam entradas de participantes.
 // Para exibir nomes reais, conecte uma fonte autorizada de entradas verificadas.
-const messages=[
+const defaultMessages=[
  ['OLHAI','Seu grupo de achadinhos está a um toque'],
  ['Ofertas','Confira novidades e oportunidades no grupo'],
  ['Cupons','Aproveite cupons quando estiverem disponíveis'],
@@ -49,24 +49,27 @@ const messages=[
 // A demonstração visual não deve ser confundida com a ocupação real do grupo.
 // Se houver dados verificados, substituem a simulação automaticamente.
 const capacity = config.verifiedCapacity;
-let percent, remaining, verified = false;
+let percent, capacityRemaining, verified = false;
 if (capacity && Number.isInteger(capacity.total) && capacity.total > 0 && Number.isInteger(capacity.remaining) && capacity.remaining >= 0 && capacity.remaining <= capacity.total) {
   percent = Math.round((capacity.total - capacity.remaining) / capacity.total * 100);
-  remaining = capacity.remaining;
+  capacityRemaining = capacity.remaining;
   verified = true;
 } else {
   const demo = [{percent:93, remaining:10}, {percent:94, remaining:8}, {percent:96, remaining:6}];
   const selection = demo[Math.floor(Math.random() * demo.length)];
   percent = selection.percent;
-  remaining = selection.remaining;
+  capacityRemaining = selection.remaining;
 }
-document.getElementById('capacity-title').textContent = verified ? 'Vagas preenchidas' : 'Exemplo de ocupação';
+document.getElementById('capacity-title').textContent = verified ? 'Vagas preenchidas hoje' : 'Prévia de ocupação';
 document.getElementById('capacity-percent').textContent = percent + '%';
-document.getElementById('capacity-message').textContent = verified ? '⚡ Restam ' + remaining + ' vagas' : '⚡ Exemplo: ' + remaining + ' vagas restantes';
-document.getElementById('capacity-note').textContent = verified ? 'Disponibilidade informada pelo administrador.' : 'Simulação visual · disponibilidade não verificada';
+document.getElementById('capacity-message').textContent = '⚡ Restam ' + capacityRemaining + ' vagas hoje';
+document.getElementById('capacity-note').textContent = verified ? '' : 'Exemplo ilustrativo';
 requestAnimationFrame(() => requestAnimationFrame(() => {
   document.getElementById('capacity-fill').style.width = percent + '%';
 }));
+// Use nomes somente quando entradas reais forem informadas em config.js.
+const verifiedJoins = Array.isArray(config.verifiedJoins) ? config.verifiedJoins.filter(x => typeof x === 'string' && x.trim()) : [];
+const messages = verifiedJoins.length ? verifiedJoins.map(name => [name.trim(), 'entrou no grupo']) : defaultMessages;
 const toast=document.getElementById('toast');let toastIndex=0;
 function showToast(){if(document.hidden)return;const [name,message]=messages[toastIndex++%messages.length];document.getElementById('toast-name').textContent=name;document.getElementById('toast-message').textContent=message;toast.hidden=false;toast.classList.remove('toast-in');void toast.offsetWidth;toast.classList.add('toast-in');setTimeout(()=>{toast.hidden=true;},1450);}
 setTimeout(()=>{showToast();setInterval(showToast,Math.max(2000,Number(config.notificationIntervalMs)||2000));},650);
