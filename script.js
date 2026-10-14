@@ -42,7 +42,7 @@ if(groupUrl){
 // Nomes fornecidos pelo responsável pela página: apenas exemplos de interface.
 // Nunca apresentar como atividade real sem uma integração verificável.
 const exampleNames=['Juliana','Maria','Ana','Marcela','Cris','Júlia','Marta','Mônica','Raquel','Anne','Vitória','Larissa','Josi','Mariana'];
-const defaultMessages=exampleNames.map(name => [name, 'Exemplo: entrou no grupo']);
+const defaultMessages=exampleNames.map(name => [name, 'entrou no grupo']);
 // A demonstração visual não deve ser confundida com a ocupação real do grupo.
 // Se houver dados verificados, substituem a simulação automaticamente.
 const capacity = config.verifiedCapacity;
@@ -64,14 +64,6 @@ document.getElementById('capacity-note').textContent = verified ? '' : 'Exemplo 
 requestAnimationFrame(() => requestAnimationFrame(() => {
   document.getElementById('capacity-fill').style.width = percent + '%';
 }));
-// Use nomes somente quando entradas reais forem informadas em config.js.
-const verifiedJoins = Array.isArray(config.verifiedJoins) ? config.verifiedJoins.filter(x => typeof x === 'string' && x.trim()) : [];
-const messages = verifiedJoins.length ? verifiedJoins.map(name => [name.trim(), 'entrou no grupo']) : defaultMessages;
-document.getElementById('toast-disclaimer').hidden = verifiedJoins.length > 0;
-const toast=document.getElementById('toast');let toastIndex=0;
-function showToast(){if(document.hidden)return;const [name,message]=messages[toastIndex++%messages.length];document.getElementById('toast-name').textContent=name;document.getElementById('toast-message').textContent=message;toast.hidden=false;toast.classList.remove('toast-in');void toast.offsetWidth;toast.classList.add('toast-in');setTimeout(()=>{toast.hidden=true;},1450);}
-setTimeout(()=>{showToast();setInterval(showToast,Math.max(2000,Number(config.notificationIntervalMs)||2000));},650);
-document.getElementById('dismiss-toast').onclick=()=>toast.hidden=true;
 const policies={terms:['Termos de uso','O OLHAI compartilha links de ofertas da Shopee. Preços, estoque e condições de compra são definidos pela loja e podem mudar. Confira os detalhes antes de comprar. A participação no grupo é gratuita. Alguns links podem gerar comissão de afiliado.'],privacy:['Privacidade','Esta página não solicita cadastro. O Pixel da Meta pode registrar visitas e cliques para mensuração de anúncios, sujeito às suas configurações de privacidade e consentimento aplicáveis. O redirecionamento automático ou clique não confirma entrada no grupo. Ao acessar o WhatsApp, aplicam-se as políticas do serviço.']};
 const dialog=document.getElementById('policy-dialog');document.querySelectorAll('[data-policy]').forEach(b=>b.onclick=()=>{const data=policies[b.dataset.policy];document.getElementById('policy-title').textContent=data[0];document.getElementById('policy-text').textContent=data[1];dialog.showModal();});
 document.querySelector('#policy-dialog .close-dialog').onclick=()=>dialog.close();

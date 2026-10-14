@@ -26,7 +26,7 @@ h1 em,h2 em,.benefit h3{color:#d54c00!important}
 .countdown small{display:block;margin-top:8px;font-weight:400;color:#805f4b}
 .countdown-track{height:5px;border-radius:10px;background:#f1d9c1;margin:9px 0 0;overflow:hidden}
 #countdown-fill{width:0;height:100%;background:linear-gradient(90deg,#ffad00,#f05c00);transition:width .3s}
-.toast-in{animation:olhaiToast .3s ease-out both}
+
 @keyframes olhaiToast{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
 /* Versão objetiva para anúncios */
