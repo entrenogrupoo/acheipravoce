@@ -46,19 +46,27 @@ const messages=[
  ['Shopee','Ofertas selecionadas direto no WhatsApp'],
  ['OLHAI','Entrada gratuita no grupo de ofertas']
 ];
-// A barra usa números apenas quando informados e verificados pelo responsável.
-// O WhatsApp não fornece essa contagem automaticamente a esta página.
+// A demonstração visual não deve ser confundida com a ocupação real do grupo.
+// Se houver dados verificados, substituem a simulação automaticamente.
 const capacity = config.verifiedCapacity;
+let percent, remaining, verified = false;
 if (capacity && Number.isInteger(capacity.total) && capacity.total > 0 && Number.isInteger(capacity.remaining) && capacity.remaining >= 0 && capacity.remaining <= capacity.total) {
- const percent = Math.round((capacity.total-capacity.remaining)/capacity.total*100);
- document.getElementById('capacity-title').textContent='Vagas preenchidas hoje';
- document.getElementById('capacity-percent').textContent=percent+'%';
- document.getElementById('capacity-fill').style.width=percent+'%';
- document.getElementById('capacity-message').textContent='⚡ Restam '+capacity.remaining+' vagas';
- document.getElementById('capacity-note').textContent='Dados informados pelo administrador do grupo.';
+  percent = Math.round((capacity.total - capacity.remaining) / capacity.total * 100);
+  remaining = capacity.remaining;
+  verified = true;
 } else {
- document.getElementById('capacity-fill').style.width='0%';
+  const demo = [{percent:93, remaining:10}, {percent:94, remaining:8}, {percent:96, remaining:6}];
+  const selection = demo[Math.floor(Math.random() * demo.length)];
+  percent = selection.percent;
+  remaining = selection.remaining;
 }
+document.getElementById('capacity-title').textContent = verified ? 'Vagas preenchidas' : 'Exemplo de ocupação';
+document.getElementById('capacity-percent').textContent = percent + '%';
+document.getElementById('capacity-message').textContent = verified ? '⚡ Restam ' + remaining + ' vagas' : '⚡ Exemplo: ' + remaining + ' vagas restantes';
+document.getElementById('capacity-note').textContent = verified ? 'Disponibilidade informada pelo administrador.' : 'Simulação visual · disponibilidade não verificada';
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  document.getElementById('capacity-fill').style.width = percent + '%';
+}));
 const toast=document.getElementById('toast');let toastIndex=0;
 function showToast(){if(document.hidden)return;const [name,message]=messages[toastIndex++%messages.length];document.getElementById('toast-name').textContent=name;document.getElementById('toast-message').textContent=message;toast.hidden=false;toast.classList.remove('toast-in');void toast.offsetWidth;toast.classList.add('toast-in');setTimeout(()=>{toast.hidden=true;},1450);}
 setTimeout(()=>{showToast();setInterval(showToast,Math.max(2000,Number(config.notificationIntervalMs)||2000));},650);

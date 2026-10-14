@@ -46,3 +46,6 @@ h1 em,h2 em,.benefit h3{color:#d54c00!important}
 .availability small{display:block;color:#987b6b;font-size:10px;margin-top:7px}
 @media(max-width:520px){.availability{padding:19px 17px}.availability-heading,.availability-heading span{font-size:14px}.availability p{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.timer-circle{animation:none}}
+
+/* Animação da barra de vagas ao carregar a página */
+.capacity-track>div{transition:width .9s cubic-bezier(.2,.7,.2,1)}
