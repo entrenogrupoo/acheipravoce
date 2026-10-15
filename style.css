@@ -9,3 +9,6 @@ html,body{min-width:0;overflow-x:hidden}main,.offers,.carousel-bleed,.carousel-v
 /* Layout compacto: ofertas imediatamente após o título */
 .hero{padding-bottom:28px}.hero h1{margin-bottom:0}.offers{margin:24px 0 28px}.section-heading{margin-bottom:12px}.section-heading h2{font-size:clamp(20px,3.7vw,30px);letter-spacing:-.5px}.bottom{margin-bottom:45px;padding:22px}.bottom-cta-text{margin:0 auto 16px!important;font-size:15px!important}body{overflow-x:hidden}.carousel-bleed{overflow:hidden;width:100%;max-width:100%}
 @media(max-width:600px){.hero{padding-bottom:24px}.offers{margin:18px 0 25px}.section-heading h2{font-size:22px}.section-heading{padding:0 16px}}
+
+/* Botão de acesso direto entre o título e o carrossel */
+.top-cta-wrap{width:min(92%,480px);margin:22px auto 0;padding:0 4px}.top-cta{min-height:56px}@media(max-width:600px){.top-cta-wrap{margin-top:15px}.top-cta{min-height:52px;padding:15px 12px}}
