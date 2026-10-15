@@ -16,3 +16,8 @@ html,body{min-width:0;overflow-x:hidden}main,.offers,.carousel-bleed,.carousel-v
 /* Faixa superior em loop continuo, sem intervalos */
 .ticker{width:100%;overflow:hidden}.ticker-inner{display:flex;align-items:center;width:max-content;min-width:0;animation:ticker-loop 26s linear infinite;will-change:transform}.ticker-set{flex:0 0 auto;white-space:nowrap}.ticker-set span{padding:0 28px;color:#fff1ce}@keyframes ticker-loop{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.ticker-inner{animation:none}}
+
+/* iOS/Android: permitir gesto horizontal dentro do carrossel, sem bloquear a rolagem vertical da página. */
+.carousel-viewport{touch-action:pan-y pinch-zoom;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none}
+.carousel-track,.offer-card,.offer-image{touch-action:pan-y pinch-zoom}
+.carousel-track{transform:translate3d(0,0,0)}

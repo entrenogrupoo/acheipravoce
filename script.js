@@ -27,18 +27,39 @@ for(let cycle=0;cycle<2;cycle++)for(let i=0;i<images.length;i++){
 document.getElementById('close-image').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 let offset=0,half=0,dragging=false,startX=0,startOffset=0,lastTime=0,suppressClick=false,pauseUntil=0;
-const measure=()=>{half=track.children[15].offsetLeft-track.children[0].offsetLeft;offset=((offset%half)+half)%half;render()};
-const render=()=>{track.style.transform=`translate3d(${-offset}px,0,0)`};
-const normalize=()=>{if(half)offset=((offset%half)+half)%half};
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function frame(time){if(lastTime&&!dragging&&!reduced&&time>pauseUntil){offset+=(time-lastTime)*.028;normalize();render()}lastTime=time;requestAnimationFrame(frame)}
-viewport.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;dragging=true;startX=e.clientX;startOffset=offset;suppressClick=false;viewport.classList.add('dragging');viewport.setPointerCapture(e.pointerId)});
-viewport.addEventListener('pointermove',e=>{if(!dragging)return;const delta=e.clientX-startX;if(Math.abs(delta)>6)suppressClick=true;offset=startOffset-delta;normalize();render()});
-function release(){if(!dragging)return;dragging=false;viewport.classList.remove('dragging');pauseUntil=performance.now()+1600;setTimeout(()=>suppressClick=false,100)}
-viewport.addEventListener('pointerup',release);viewport.addEventListener('pointercancel',release);viewport.addEventListener('lostpointercapture',release);
-viewport.addEventListener('mouseenter',()=>{pauseUntil=performance.now()+300});
-viewport.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();offset+=e.deltaX;normalize();render();pauseUntil=performance.now()+1300}},{passive:false});
-window.addEventListener('resize',measure);window.addEventListener('load',measure);measure();requestAnimationFrame(frame);
+const render=()=>{track.style.transform=`translate3d(${-offset}px,0,0)`};
+const normalize=()=>{if(half>0)offset=((offset%half)+half)%half};
+const measure=()=>{
+ const first=track.children[0],repeat=track.children[images.length];
+ if(!first||!repeat)return;
+ const measured=repeat.offsetLeft-first.offsetLeft;
+ if(measured>0){half=measured;normalize();render()}
+};
+function frame(time){
+ if(lastTime&&!dragging&&!reduced&&time>pauseUntil&&half>0){
+  offset+=Math.min(time-lastTime,80)*0.038;normalize();render();
+ }
+ lastTime=time;requestAnimationFrame(frame);
+}
+function begin(x){dragging=true;startX=x;startOffset=offset;suppressClick=false;viewport.classList.add('dragging')}
+function move(x){if(!dragging)return;const delta=x-startX;if(Math.abs(delta)>7)suppressClick=true;offset=startOffset-delta;normalize();render()}
+function release(){if(!dragging)return;dragging=false;viewport.classList.remove('dragging');pauseUntil=performance.now()+900;setTimeout(()=>{suppressClick=false},150)}
+// Touch listeners are explicit for iOS Safari and in-app browsers.
+viewport.addEventListener('touchstart',e=>{if(e.touches.length===1)begin(e.touches[0].clientX)},{passive:true});
+viewport.addEventListener('touchmove',e=>{if(!dragging||e.touches.length!==1)return;const delta=e.touches[0].clientX-startX;if(Math.abs(delta)>8){e.preventDefault();move(e.touches[0].clientX)}},{passive:false});
+viewport.addEventListener('touchend',release,{passive:true});
+viewport.addEventListener('touchcancel',release,{passive:true});
+viewport.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||(e.pointerType==='mouse'&&e.button!==0))return;begin(e.clientX);try{viewport.setPointerCapture(e.pointerId)}catch{}});
+viewport.addEventListener('pointermove',e=>{if(e.pointerType!=='touch')move(e.clientX)});
+viewport.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')release()});
+viewport.addEventListener('pointercancel',e=>{if(e.pointerType!=='touch')release()});
+viewport.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();offset+=e.deltaX;normalize();render();pauseUntil=performance.now()+700}},{passive:false});
+window.addEventListener('resize',measure);
+window.addEventListener('pageshow',()=>{measure();lastTime=0});
+window.addEventListener('load',measure);
+if('ResizeObserver'in window)new ResizeObserver(measure).observe(viewport);
+measure();requestAnimationFrame(frame);
 const policies={terms:['Termos de uso','O OLHAI compartilha ofertas e links de lojas terceirizadas. Preços, descontos, frete, estoque e cupons podem mudar. Confira os valores e condições no aplicativo da loja antes de comprar. A participação no grupo é gratuita e alguns links podem gerar comissão de afiliado.'],privacy:['Privacidade','Esta página não solicita cadastro. O Meta Pixel é usado para medir visualizações e cliques no botão do WhatsApp. Um clique não confirma entrada no grupo. Ao abrir o WhatsApp, aplicam-se também as políticas desse serviço.']};
 const policyDialog=document.getElementById('policy-dialog');
 document.querySelectorAll('[data-policy]').forEach(b=>b.addEventListener('click',()=>{const [title,body]=policies[b.dataset.policy];document.getElementById('policy-title').textContent=title;document.getElementById('policy-text').textContent=body;policyDialog.showModal()}));
