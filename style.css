@@ -21,3 +21,10 @@ html,body{min-width:0;overflow-x:hidden}main,.offers,.carousel-bleed,.carousel-v
 .carousel-viewport{touch-action:pan-y pinch-zoom;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none}
 .carousel-track,.offer-card,.offer-image{touch-action:pan-y pinch-zoom}
 .carousel-track{transform:translate3d(0,0,0)}
+
+/* iOS: keep the document canvas aligned to the actually visible viewport when zoom changes. */
+html{width:100%;min-width:0;overflow-x:clip}
+body{width:var(--olhai-visible-width,100%);max-width:none;min-width:0;margin:0 auto;overflow-x:clip}
+main,footer,.ticker{width:100%;max-width:100%}
+.hero,.bottom,.top-cta-wrap{margin-left:auto;margin-right:auto}
+.carousel-bleed,.carousel-viewport{width:100%;max-width:100%;overflow:hidden}

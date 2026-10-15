@@ -64,3 +64,27 @@ const policies={terms:['Termos de uso','O OLHAI compartilha ofertas e links de l
 const policyDialog=document.getElementById('policy-dialog');
 document.querySelectorAll('[data-policy]').forEach(b=>b.addEventListener('click',()=>{const [title,body]=policies[b.dataset.policy];document.getElementById('policy-title').textContent=title;document.getElementById('policy-text').textContent=body;policyDialog.showModal()}));
 document.getElementById('close-policy').addEventListener('click',()=>policyDialog.close());
+
+// Correct Safari/Chrome iOS visual viewport mismatches after pinch zoom or rotation.
+(function(){
+  let scheduled=false;
+  function syncVisibleWidth(){
+    scheduled=false;
+    const vv=window.visualViewport;
+    const layoutWidth=document.documentElement.clientWidth;
+    const visibleWidth=vv&&Number.isFinite(vv.width)?vv.width:0;
+    const width=Math.max(layoutWidth,visibleWidth);
+    if(width>0 && width<10000){
+      document.documentElement.style.setProperty('--olhai-visible-width',width+'px');
+    }
+  }
+  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(syncVisibleWidth)}
+  window.addEventListener('resize',schedule,{passive:true});
+  window.addEventListener('orientationchange',schedule,{passive:true});
+  window.addEventListener('pageshow',schedule,{passive:true});
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',schedule,{passive:true});
+    window.visualViewport.addEventListener('scroll',schedule,{passive:true});
+  }
+  schedule();
+})();
