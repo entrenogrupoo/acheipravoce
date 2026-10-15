@@ -2,3 +2,6 @@
 
 /* Protecao contra deslocamento lateral em zoom e navegadores mobile */
 main,section,footer{max-width:100%} .hero,.bottom{max-width:calc(100% - 24px)} .carousel-track{max-width:none} @supports (overflow:clip){html,body{overflow-x:clip}}
+
+/* Containment: avoid horizontal document expansion at any viewport width */
+html,body{min-width:0;overflow-x:hidden}main,.offers,.carousel-bleed,.carousel-viewport{min-width:0;max-width:100%}.carousel-bleed{left:0;right:0;transform:none}.carousel-track{max-width:none;flex-wrap:nowrap}.hero,.bottom{box-sizing:border-box;margin-left:auto;margin-right:auto}
