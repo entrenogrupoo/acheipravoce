@@ -28,3 +28,12 @@ body{width:var(--olhai-visible-width,100%);max-width:none;min-width:0;margin:0 a
 main,footer,.ticker{width:100%;max-width:100%}
 .hero,.bottom,.top-cta-wrap{margin-left:auto;margin-right:auto}
 .carousel-bleed,.carousel-viewport{width:100%;max-width:100%;overflow:hidden}
+
+/* CTAs: maior destaque no celular, sem alterar a largura responsiva */
+.top-cta-wrap{width:min(92%,620px)}
+.cta{min-height:68px;padding:21px 20px;font-size:clamp(16px,2.8vw,19px);line-height:1.25;text-align:center}
+@media(max-width:600px){
+ .top-cta-wrap{width:calc(100% - 32px);max-width:620px;padding:0;margin-top:16px}
+ .top-cta,.bottom .cta{width:100%;min-height:68px;padding:20px 12px;font-size:16px;font-weight:800;letter-spacing:.1px;border-radius:16px}
+ .bottom{width:calc(100% - 32px);padding:20px 14px}
+}
