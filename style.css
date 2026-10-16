@@ -53,3 +53,13 @@ body{background:radial-gradient(ellipse at 8% 12%,#ffd1c4 0%,transparent 39%),ra
 .edge-fade.left{background:linear-gradient(90deg,#fff0e9,transparent)}.edge-fade.right{background:linear-gradient(270deg,#fff0e9,transparent)}
 .bottom p{color:#865d55}footer{color:#98766d}footer .footer-links button{color:#a35f5a}
 .policy-dialog{background:#fff4ed;color:#633d37;border-color:#f3c3b9}.image-dialog{background:#fff2ed;border-color:#eeb7a7}
+
+/* Corrige a faixa contínua sem lacunas */
+.ticker{overflow:hidden;display:flex;width:100%;white-space:nowrap}
+.ticker-inner{display:flex;align-items:center;width:max-content;min-width:max-content;flex:none;gap:0;animation:olhaiContinuous 36s linear infinite!important}
+.ticker-set{display:flex;align-items:center;flex:0 0 auto;gap:0;white-space:nowrap}
+.ticker-item{display:inline-flex;align-items:center;flex:none;padding:0 26px;font-weight:800}
+.ticker-star{display:inline-flex;flex:none;padding:0 9px;color:#fff8f4}
+@keyframes olhaiContinuous{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
+@media(max-width:600px){.ticker-item{padding:0 18px}.ticker-star{padding:0 7px}}
+@media(prefers-reduced-motion:reduce){.ticker-inner{animation:none!important}}
