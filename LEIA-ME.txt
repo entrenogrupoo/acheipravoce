@@ -1,0 +1,6 @@
+OLHAI - 15 ofertas + carrossel abaixo da apresentacao + correcao de zoom
+
+No GitHub, substitua estes 4 arquivos na RAIZ: index.html, style.css, script.js, config.js.
+Mantenha as 15 imagens oferta-01.jpeg a oferta-15.jpeg na mesma pasta raiz (ou envie todas do ZIP).
+Se houver uma pasta ofertas antiga, ela nao e utilizada nesta versao.
+Publique e atualize o navegador.
