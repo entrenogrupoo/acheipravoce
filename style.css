@@ -37,3 +37,19 @@ main,footer,.ticker{width:100%;max-width:100%}
  .top-cta,.bottom .cta{width:100%;min-height:68px;padding:20px 12px;font-size:16px;font-weight:800;letter-spacing:.1px;border-radius:16px}
  .bottom{width:calc(100% - 32px);padding:20px 14px}
 }
+
+/* Identidade maternidade e infantil */
+:root{color:#593832;background:#fff2ed}
+body{background:radial-gradient(ellipse at 8% 12%,#ffd1c4 0%,transparent 39%),radial-gradient(ellipse at 90% 45%,#ffe2d7 0%,transparent 38%),linear-gradient(145deg,#fff7f0 0%,#ffece6 65%,#fff7f0 100%)}
+.ambient-one{background:#f9ac9c;opacity:.18}.ambient-two{background:#f3b6a7;opacity:.16}
+.ticker{background:linear-gradient(90deg,#ef9986,#ffd1b7,#ed9e8c);color:#6a3430}.ticker-set span{color:#fff8f4}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,243,236,.68));border-color:#f1c4b7;box-shadow:0 16px 55px #b36c5922,inset 0 1px #fff}
+.hero h1,.section-heading h2{color:#60352f}.hero h1 em,.section-heading em,em{color:#e87978}
+.logo-wrap{background:linear-gradient(135deg,#fff1e3,#ed9b88,#ffc7af);box-shadow:0 0 32px #f3a49c65}
+.eyebrow{color:#b96e68}.live-dot{background:#ef9c8c;box-shadow:0 0 12px #efa596}
+.cta{background:linear-gradient(110deg,#0fba60,#07944a);color:white}
+.carousel-hint{color:#996d63}.carousel-hint span{color:#d9837b}
+.offer-card{border-color:#f4c7bc;box-shadow:0 12px 30px #9d625b30}
+.edge-fade.left{background:linear-gradient(90deg,#fff0e9,transparent)}.edge-fade.right{background:linear-gradient(270deg,#fff0e9,transparent)}
+.bottom p{color:#865d55}footer{color:#98766d}footer .footer-links button{color:#a35f5a}
+.policy-dialog{background:#fff4ed;color:#633d37;border-color:#f3c3b9}.image-dialog{background:#fff2ed;border-color:#eeb7a7}
