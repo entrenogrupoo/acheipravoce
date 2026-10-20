@@ -63,3 +63,21 @@ body{background:radial-gradient(ellipse at 8% 12%,#ffd1c4 0%,transparent 39%),ra
 @keyframes olhaiContinuous{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-50%,0,0)}}
 @media(max-width:600px){.ticker-item{padding:0 18px}.ticker-star{padding:0 7px}}
 @media(prefers-reduced-motion:reduce){.ticker-inner{animation:none!important}}
+
+/* Quatro ofertas clicáveis, imediatamente abaixo do destaque principal */
+.featured-products{width:min(92%,980px);margin:22px auto 12px;box-sizing:border-box}
+.featured-heading{text-align:center;margin:0 auto 19px}
+.featured-kicker{font-size:11px;letter-spacing:2px;color:#bb7770;font-weight:800}
+.featured-heading h2{font-size:clamp(22px,3.3vw,32px);color:#633a33;line-height:1.16;margin:9px 0 7px}
+.featured-heading h2 em{font-style:normal;color:#e87978}
+.featured-heading p{font-size:13px;color:#936d64;margin:0}
+.featured-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.featured-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;text-decoration:none;border-radius:19px;background:#fffaf7;border:1px solid #f0c6ba;box-shadow:0 8px 23px #a36a5b20;transition:transform .2s,box-shadow .2s}
+.featured-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #a36a5b33}
+.featured-visual{height:105px;display:grid;place-items:center;font-size:51px;background:linear-gradient(140deg,#ffe2d8,#fff2e9);border-bottom:1px solid #f5d8cf}
+.featured-details{display:flex;flex-direction:column;gap:8px;padding:13px 11px 12px;flex:1;min-width:0}
+.featured-name{font-size:13px;font-weight:700;color:#67413a;min-height:34px;line-height:1.3}
+.featured-details strong{font-size:21px;color:#59352e;line-height:1.1}
+.featured-button{display:block;margin-top:auto;text-align:center;border-radius:10px;background:#ee817c;color:white;padding:11px 4px;font-size:11px;font-weight:900;letter-spacing:.25px}
+.featured-disclaimer{text-align:center;color:#a47d73;font-size:11px;margin:10px 0 0}
+@media(max-width:700px){.featured-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.featured-products{width:calc(100% - 32px);margin-top:18px}.featured-visual{height:95px;font-size:45px}.featured-details strong{font-size:20px}.featured-button{font-size:10px}}
