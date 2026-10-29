@@ -11,10 +11,10 @@ document.querySelectorAll('[data-group]').forEach(a=>{
  if(groupUrl)a.href=groupUrl;
  a.addEventListener('click',e=>{
   if(!groupUrl){e.preventDefault();alert('O link do grupo está indisponível no momento.');return;}
-  if(typeof fbq==='function')fbq('trackCustom','CliqueGrupoWhatsApp',{source:'botao',destination:'WhatsApp',content_name:'OLHAI'});
+  if(typeof fbq==='function')fbq('trackCustom','CliqueGrupoWhatsApp',{source:'botao',destination:'WhatsApp',content_name:'OLHAI Promobaby'});
  });
 });
-const images=Array.from({length:15},(_,i)=>`oferta-${String(i+1).padStart(2,'0')}.jpeg`);
+const images=Array.from({length:4},(_,i)=>`oferta-${String(i+1).padStart(2,'0')}.jpeg`);
 const track=document.getElementById('carousel-track');
 const viewport=document.getElementById('carousel-viewport');
 const dialog=document.getElementById('image-dialog');
